@@ -19,9 +19,13 @@
             % to each row of the Obs_Durations Matrix. This matrix can include media names not
             % present in VidDir. Only videos matching those in VidDir will
             % be analyzed unless Process Input is set to "All".
+            % Leaving this blank run importMultiBORIS to select raw BORIS
+            % exports (Reiliant on particular BORIS format).
         % Obs_Durations
             % n x 2 matrix of [Start Durations, End Durations] in seconds
             % These should be X seconds into the media duration
+            % Leaving this blank run importMultiBORIS to select raw BORIS
+            % exports (Reiliant on particular BORIS format).
         % VidDir
             % n x 1 string array of full file paths of Video Directories
             % you would like to load in and analyze. Leave black [] for
@@ -87,10 +91,11 @@ if isempty(VidDir)
     [~,path] = uigetfile('*.mp4','Select Any Video from Deployment');
     direct = dir(path)
     filelist = ~cellfun(@isempty,strfind({direct.name},'.mp4')); % + ~cellfun(@isempty,strfind({direct.name},'.mov')
-    VidDir = strings([sum(filelist),1])
+    VidDir = "";
+    VidDir = strings([sum(filelist),1]);
+    names = {direct(filelist).name};
+    folders = {direct(filelist).folder};
     for ii = 1:sum(filelist)
-        names = {direct(filelist).name};
-        folders = {direct(filelist).folder};
         VidDir(ii,1) = strcat(folders{ii},'\',names{ii});
     end
 end

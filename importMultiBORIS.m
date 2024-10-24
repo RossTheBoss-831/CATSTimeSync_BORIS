@@ -12,7 +12,7 @@
 function data = importMultiBORIS(filepaths)
 
 if nargin < 1
-    [files, path] = uigetfile('*.xlsx', 'MultiSelect','on');
+    [files, path] = uigetfile('*.xlsx', 'Select all BORIS Observation Export files to import', 'MultiSelect', 'on');
     files = string(files);
     
     filepaths = strings(length(files),1);
